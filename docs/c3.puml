@@ -1,0 +1,29 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+!define CGC #9bc53d
+!define TW #4f7cac
+!define MALL #ffa62b
+!define arrow_color #707070
+
+!include <C4/C4_Container.puml>
+!include <C4/C4_Component.puml>
+!include <C4/C4_Person.puml>
+
+Person(admin, "Administrator", "A system administrator")
+
+System(mall, "Online mall platform") {
+  Container(webapp, "Web Application", "Spring Boot") {
+    Component(controller, "Controller")
+    Component(service, "Service")
+    Component(repository, "Repository")
+    Component(mapper, "MyBatis Mapper")
+    Component(flyway, "Flyway Migration")
+  }
+  Container(database, "Database", "MySQL")
+}
+
+Rel(admin, webapp, "Uses", arrow_color)
+Rel(webapp, database, "Reads and writes data to", arrow_color)
+
+@enduml
